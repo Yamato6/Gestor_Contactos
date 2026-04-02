@@ -15,6 +15,7 @@ function isValidPhone(phone) {
 
 // Normalizar datos de entrada
 function normalizeContactData(data) {
+    // Estandariza valores antes de validar/persistir para evitar inconsistencias.
     return {
         name: typeof data.name === "string" ? data.name.trim() : "",
         phone: typeof data.phone === "string" ? data.phone.trim() : "",
@@ -55,6 +56,7 @@ function validateContactData(data) {
 // Buscar contacto por email exacto (para validar duplicados)
 function findByEmail(email) {
     const contacts = repository.getAll();
+    // Comparación case-insensitive para bloquear duplicados por mayúsculas/minúsculas.
     return contacts.find((c) => c.email.toLowerCase() === email.toLowerCase());
 }
 
@@ -102,6 +104,7 @@ function create(data) {
 
     // Generar contacto final
     const newContact = {
+        // El id se calcula en repository usando el máximo actual + 1.
         id: repository.getNextId(),
         name: normalized.name,
         phone: normalized.phone,
@@ -114,6 +117,7 @@ function create(data) {
 
 // Actualizar contacto por ID
 function update(id, data) {
+    // Verifica existencia antes de validar para devolver 404 temprano.
     const existing = repository.getById(id);
     if (!existing) {
         return { ok: false, status: 404, errors: ["Contacto no encontrado."] };
@@ -152,6 +156,7 @@ function update(id, data) {
 
 // Eliminar contacto por ID
 function remove(id) {
+    // La capa repository devuelve null cuando no hay coincidencia.
     const deleted = repository.deleteById(id);
 
     if (!deleted) {

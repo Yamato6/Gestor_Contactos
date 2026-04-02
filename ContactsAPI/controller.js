@@ -4,6 +4,7 @@ const service = require("./service");
 // GET /contacts?search=texto
 function getAllContacts(req, res) {
     try {
+        // El query param search es opcional; si no viene se listan todos.
         const search = req.query.search || "";
         const contacts = service.findAll(search);
 
@@ -24,6 +25,7 @@ function getAllContacts(req, res) {
 // GET /contacts/:id
 function getContactById(req, res) {
     try {
+        // Convierte el parámetro de ruta a entero seguro para validar entrada.
         const id = parseInt(req.params.id, 10);
         if (isNaN(id) || id <= 0) {
             return res.status(400).json({
@@ -34,6 +36,7 @@ function getContactById(req, res) {
 
         const contact = service.findById(id);
         if (!contact) {
+            // No existe el recurso solicitado.
             return res.status(404).json({
                 code: 0,
                 message: "Contacto no encontrado."
@@ -57,9 +60,11 @@ function getContactById(req, res) {
 // POST /contacts
 function createContact(req, res) {
     try {
+        // Toda la validación de negocio se centraliza en service.
         const result = service.create(req.body);
 
         if (!result.ok) {
+            // Se respeta el status devuelto por service (ej: 400).
             return res.status(result.status).json({
                 code: 0,
                 message: "Error de validación.",
@@ -95,6 +100,7 @@ function updateContact(req, res) {
         const result = service.update(id, req.body);
 
         if (!result.ok) {
+            // Puede devolver 400 por validación o 404 si no existe el contacto.
             return res.status(result.status).json({
                 code: 0,
                 message: "No se pudo actualizar el contacto.",
@@ -130,6 +136,7 @@ function deleteContact(req, res) {
         const result = service.remove(id);
 
         if (!result.ok) {
+            // Si el contacto no existe, service devuelve 404.
             return res.status(result.status).json({
                 code: 0,
                 message: "No se pudo eliminar el contacto.",

@@ -7,12 +7,14 @@ const DB_PATH = path.join(__dirname, "db.json");
 
 // Leer todos los contactos del archivo
 function readData() {
+    // Sincronía intencional: simple para proyecto pequeño/local.
     const data = fs.readFileSync(DB_PATH, "utf-8");
     return JSON.parse(data);
 }
 
 // Escribir contactos al archivo
 function writeData(contacts) {
+    // Se guarda con indentación para facilitar lectura manual del JSON.
     fs.writeFileSync(DB_PATH, JSON.stringify(contacts, null, 2));
 }
 
@@ -31,6 +33,7 @@ function getById(id) {
 function getNextId() {
     const contacts = readData();
     if (contacts.length === 0) return 1;
+    // Calcula el siguiente id en base al mayor id existente.
     return Math.max(...contacts.map((c) => c.id)) + 1;
 }
 
@@ -38,6 +41,7 @@ function getNextId() {
 function insert(contact) {
     const contacts = readData();
     contacts.push(contact);
+    // Persistencia inmediata tras cada alta.
     writeData(contacts);
     return contact;
 }
@@ -60,6 +64,7 @@ function deleteById(id) {
     const index = contacts.findIndex((c) => c.id === id);
     if (index === -1) return null;
 
+    // splice devuelve arreglo; se toma el elemento eliminado.
     const deleted = contacts.splice(index, 1)[0];
     writeData(contacts);
     return deleted;

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Koyomi Araragi",
+    "phone": "5512345678",
+    "email": "koyomi.araragi@monogatari.jp"
+  },
+  {
+    "id": 2,
+    "name": "Hitagi Senjougahara",
+    "phone": "5512345679",
+    "email": "hitagi.senjougahara@monogatari.jp"
+  },
+  {
+    "id": 3,
+    "name": "Mayoi Hachikuji",
+    "phone": "5512345680",
+    "email": "mayoi.hachikuji@monogatari.jp"
+  },
+  {
+    "id": 4,
+    "name": "Suruga Kanbaru",
+    "phone": "5512345681",
+    "email": "suruga.kanbaru@monogatari.jp"
+  },
+  {
+    "id": 5,
+    "name": "Nadeko Sengoku",
+    "phone": "5512345682",
+    "email": "nadeko.sengoku@monogatari.jp"
+  },
+  {
+    "id": 6,
+    "name": "Tsubasa Hanekawa",
+    "phone": "5512345683",
+    "email": "tsubasa.hanekawa@monogatari.jp"
+  },
+  {
+    "id": 7,
+    "name": "Shinobu Oshino",
+    "phone": "5512345684",
+    "email": "shinobu.oshino@monogatari.jp"
+  },
+  {
+    "id": 8,
+    "name": "Meme Oshino",
+    "phone": "5512345685",
+    "email": "meme.oshino@monogatari.jp"
+  },
+  {
+    "id": 9,
+    "name": "Karen Araragi",
+    "phone": "5512345686",
+    "email": "karen.araragi@monogatari.jp"
+  },
+  {
+    "id": 10,
+    "name": "Tsukihi Araragi",
+    "phone": "5512345687",
+    "email": "tsukihi.araragi@monogatari.jp"
+  }
+]

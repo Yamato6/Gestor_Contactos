@@ -86,10 +86,18 @@
 
         <div id="contact-detail" class="d-none">
           <div class="d-flex align-items-start gap-4">
+            <!-- Avatar por URL cuando el contacto tiene img_link -->
+            <img
+              id="detail-avatar-image"
+              alt="Imagen del contacto"
+              class="rounded-circle border"
+              style="display:none; width:120px; height:120px; object-fit:cover;"
+            />
+            <!-- Fallback a iniciales cuando no hay imagen o falla la carga -->
             <div
-              class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center fw-bold"
-              id="detail-avatar"
-              style="width: 120px; height: 120px; font-size: 2rem;"
+              class="rounded-circle bg-secondary text-white align-items-center justify-content-center fw-bold"
+              id="detail-avatar-fallback"
+              style="display:flex; width: 120px; height: 120px; font-size: 2rem;"
             >
               --
             </div>

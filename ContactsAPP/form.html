@@ -66,6 +66,27 @@
                   />
                   <div class="form-text">Formato válido. Máximo 100 caracteres.</div>
                 </div>
+
+                <div class="col-12">
+                  <label for="img_link" class="form-label">Link de imagen (opcional)</label>
+                  <input
+                    type="url"
+                    id="img_link"
+                    class="form-control"
+                    maxlength="10000"
+                    placeholder="https://..."
+                  />
+                  <div class="form-text">Debe ser una URL válida (http o https).</div>
+                </div>
+
+                <div class="col-12">
+                  <img
+                    id="img-preview"
+                    alt="Vista previa de la imagen del contacto"
+                    class="rounded border"
+                    style="display:none; width:120px; height:120px; object-fit:cover;"
+                  />
+                </div>
               </div>
 
               <!-- Mensajes de error/éxito desde form.js -->

@@ -70,6 +70,9 @@ function verDetalle(id) {
       document.getElementById("detail-email").textContent = c.email;
       document.getElementById("detail-id").textContent = "ID: " + c.id;
 
+      const avatarImage = document.getElementById("detail-avatar-image");
+      const avatarFallback = document.getElementById("detail-avatar-fallback");
+
       // Avatar con iniciales
       const iniciales = c.name
         .split(" ")
@@ -78,7 +81,30 @@ function verDetalle(id) {
         .substring(0, 2)
         .toUpperCase();
 
-      document.getElementById("detail-avatar").textContent = iniciales;
+      // Normaliza el campo para evitar espacios que aparenten URL valida.
+      const imageUrl = typeof c.img_link === "string" ? c.img_link.trim() : "";
+
+      if (imageUrl) {
+        // Si la imagen falla al cargar, vuelve automaticamente al avatar por iniciales.
+        avatarImage.onerror = function () {
+          avatarImage.removeAttribute("src");
+          avatarImage.style.display = "none";
+          avatarFallback.style.display = "flex";
+          avatarFallback.textContent = iniciales;
+        };
+
+        // Prioriza imagen cuando existe un link valido.
+        avatarImage.src = imageUrl;
+        avatarImage.style.display = "block";
+        avatarFallback.style.display = "none";
+      } else {
+        // Sin imagen, usa el fallback de iniciales.
+        avatarImage.removeAttribute("src");
+        avatarImage.onerror = null;
+        avatarImage.style.display = "none";
+        avatarFallback.style.display = "flex";
+        avatarFallback.textContent = iniciales;
+      }
     })
     .catch((error) => {
       console.log("Error GET /contacts/:id:", error);

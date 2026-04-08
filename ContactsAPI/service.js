@@ -13,13 +13,27 @@ function isValidPhone(phone) {
     return phoneRegex.test(phone);
 }
 
+// Validar URL de imagen (opcional)
+// Solo permite esquemas web para evitar enlaces no seguros/no renderizables en el frontend.
+function isValidImageUrl(url) {
+    if (!url) return true;
+
+    try {
+        const parsed = new URL(url);
+        return parsed.protocol === "http:" || parsed.protocol === "https:";
+    } catch (error) {
+        return false;
+    }
+}
+
 // Normalizar datos de entrada
 function normalizeContactData(data) {
     // Estandariza valores antes de validar/persistir para evitar inconsistencias.
     return {
         name: typeof data.name === "string" ? data.name.trim() : "",
         phone: typeof data.phone === "string" ? data.phone.trim() : "",
-        email: typeof data.email === "string" ? data.email.trim().toLowerCase() : ""
+        email: typeof data.email === "string" ? data.email.trim().toLowerCase() : "",
+        img_link: typeof data.img_link === "string" ? data.img_link.trim() : ""
     };
 }
 
@@ -48,6 +62,11 @@ function validateContactData(data) {
         errors.push("El email debe tener entre 5 y 100 caracteres.");
     } else if (!isValidEmail(data.email)) {
         errors.push("El formato del email no es válido.");
+    }
+
+    // img_link: opcional, pero si existe debe ser URL válida
+    if (!isValidImageUrl(data.img_link)) {
+        errors.push("El link de imagen debe ser una URL válida (http/https).");
     }
 
     return errors;
@@ -108,7 +127,8 @@ function create(data) {
         id: repository.getNextId(),
         name: normalized.name,
         phone: normalized.phone,
-        email: normalized.email
+        email: normalized.email,
+        img_link: normalized.img_link
     };
 
     const saved = repository.insert(newContact);
@@ -148,7 +168,8 @@ function update(id, data) {
     const updated = repository.updateById(id, {
         name: normalized.name,
         phone: normalized.phone,
-        email: normalized.email
+        email: normalized.email,
+        img_link: normalized.img_link
     });
 
     return { ok: true, status: 200, data: updated };
